@@ -9,35 +9,52 @@ const MovieList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState(null); 
 
   const moviesPerPage = 4;
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
+      setError(null); 
+
       try {
-        
-        const response = await fetch(`https://thingproxy.freeboard.io/fetch/http://www.omdbapi.com/?s=${searchTerm || 'Avengers'}&apikey=1ce657b3`);
+        const response = await fetch(
+          `https://thingproxy.freeboard.io/fetch/http://www.omdbapi.com/?s=${searchTerm || 'Avengers'}&apikey=1ce657b3`,
+          {
+            method: 'GET',
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
+
         if (data.Search) {
           setMovies(data.Search);
         } else {
-          console.error("No movies found");
-          setMovies([]); 
+          setMovies([]);
+          setError("No movies found matching your search.");
         }
       } catch (error) {
         console.error("Error fetching the movie data: ", error);
+        setError("Error fetching movies. Please try again later.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchMovies();
-  }, [searchTerm]); 
+  }, [searchTerm]);
 
-  
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
   const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
@@ -64,12 +81,14 @@ const MovieList = () => {
           <FaSearch />
         </span>
       </div>
+
+      {error && <p className="text-center text-danger">{error}</p>} {/* Display error if present */}
       
       <div className="row">
         {currentMovies.length > 0 ? (
-          currentMovies.map(movie => (
+          currentMovies.map((movie) => (
             <div className="col-6 col-md-3 mb-4" key={movie.imdbID}>
-              <div 
+              <div
                 className="card h-100"
                 onClick={() => navigate(`/movie/${movie.imdbID}`)} // Navigate to movie details on card click
                 style={{ cursor: 'pointer' }} // Change cursor to pointer to indicate clickable
@@ -78,7 +97,6 @@ const MovieList = () => {
                 <div className="card-body">
                   <h5 className="card-title">{movie.Title}</h5>
                   <p className="card-text">Year: {movie.Year}</p>
-                  {/* Remove the button, since the card itself is clickable */}
                 </div>
               </div>
             </div>
