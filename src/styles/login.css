@@ -1,0 +1,61 @@
+body {
+    background-color: #f8f9fa; /* Light background for the page */
+}
+
+.login-container {
+    background: white; /* White background for the form */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin: 50px auto; /* Center the form */
+    max-width: 400px; /* Max width for the form */
+    position: relative; /* For positioning spinner */
+}
+
+h2 {
+    color: #343a40; /* Dark text color */
+}
+
+.text-center {
+    text-align: center; /* Center text */
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        margin: 20px; /* Reduce margin on smaller screens */
+        padding: 1.5rem; /* Adjust padding */
+    }
+}
+
+.alert {
+    margin-bottom: 1rem; /* Space below alert */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+.form-control {
+    border-radius: 0.25rem; /* Rounded edges for inputs */
+}
+
+.form-control:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Soft glow */
+}
+
+.btn {
+    border-radius: 0.25rem; /* Rounded edges for buttons */
+    transition: background-color 0.3s; /* Smooth color transition */
+    margin-top: 1rem; /* Adds space above the button */
+    margin-bottom: 1rem; /* Adds space below the button */
+}
+
+.btn:hover {
+    background-color: #007bff; /* Change to a different shade */
+    color: white; /* Ensure text is visible */
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .btn {
+        font-size: 14px; /* Smaller button text */
+    }
+}

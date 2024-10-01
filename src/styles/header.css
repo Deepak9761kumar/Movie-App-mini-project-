@@ -1,0 +1,54 @@
+/* header.css */
+
+/* Background gradient for the header */
+.header-custom {
+    background: linear-gradient(45deg, #333, #555);
+    padding: 15px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styling for nav links */
+  .header-custom .nav-link {
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .header-custom .nav-link:hover {
+    color: #f8d210; /* Highlight color on hover */
+  }
+  
+  /* Custom styling for the logout button */
+  .header-custom .btn-outline-light {
+    border-color: #f8d210;
+    color: #f8d210;
+  }
+  
+  .header-custom .btn-outline-light:hover {
+    background-color: #f8d210;
+    color: #333;
+    border-color: #f8d210;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+    .header-custom {
+      text-align: center; /* Center everything on small screens */
+    }
+  
+    .header-custom .container {
+      flex-direction: column; /* Stack items vertically */
+    }
+  
+    .header-custom .nav {
+      flex-direction: column; /* Stack the nav links */
+    }
+  
+    .header-custom h1 {
+      margin-bottom: 15px; /* Add spacing between title and nav on mobile */
+    }
+  
+    .header-custom .nav-item {
+      margin-bottom: 10px; /* Add spacing between nav items */
+    }
+  }
+  
