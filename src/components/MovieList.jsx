@@ -22,6 +22,9 @@ const MovieList = () => {
       try {
         const response = await fetch(
           `https://thingproxy.freeboard.io/fetch/http://www.omdbapi.com/?s=${searchTerm || 'Avengers'}&apikey=1ce657b3`,
+          // "http://www.omdbapi.com/?s=Avengers&apikey=1ce657b3",
+          // 'https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?s=Avengers&apikey=1ce657b3',
+
           {
             method: 'GET',
             headers: {
@@ -29,6 +32,7 @@ const MovieList = () => {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
             },
+         
           }
         );
 
