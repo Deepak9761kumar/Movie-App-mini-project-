@@ -25,8 +25,8 @@ const MovieList = () => {
           `https://thingproxy.freeboard.io/fetch/http://www.omdbapi.com/?s=${searchQuery}&apikey=1ce657b3`,
           {
             method: 'GET',
+            mode: 'no-cors',
             headers: {
-              "Access-Control-Allow-Origin": "*",
               'Content-Type': 'application/json',
               'Accept': 'application/json',
             }
