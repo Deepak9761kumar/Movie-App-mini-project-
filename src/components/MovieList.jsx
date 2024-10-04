@@ -9,6 +9,7 @@ const MovieList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchQuery, setSearchQuery] = useState('Avengers'); 
   const [error, setError] = useState(null); 
 
   const moviesPerPage = 4;
@@ -21,18 +22,14 @@ const MovieList = () => {
 
       try {
         const response = await fetch(
-          `https://thingproxy.freeboard.io/fetch/http://www.omdbapi.com/?s=${searchTerm || 'Avengers'}&apikey=1ce657b3`,
-          // "http://www.omdbapi.com/?s=Avengers&apikey=1ce657b3",
-          // 'https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?s=Avengers&apikey=1ce657b3',
-
+          `https://thingproxy.freeboard.io/fetch/http://www.omdbapi.com/?s=${searchQuery}&apikey=1ce657b3`,
           {
             method: 'GET',
             headers: {
               "Access-Control-Allow-Origin": "*",
               'Content-Type': 'application/json',
               'Accept': 'application/json',
-            },
-         
+            }
           }
         );
 
@@ -57,7 +54,17 @@ const MovieList = () => {
     };
 
     fetchMovies();
-  }, [searchTerm]);
+  }, [searchQuery]); // Trigger API call when searchQuery changes
+
+  const handleSearch = () => {
+    setSearchQuery(searchTerm); // Trigger search when the button is clicked
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(); // Trigger search when Enter is pressed
+    }
+  };
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
@@ -80,10 +87,11 @@ const MovieList = () => {
           placeholder="Search for movies..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+          onKeyDown={handleKeyDown} // Detect "Enter" key press
         />
-        <span className="input-group-text">
+        <button className="input-group-text" onClick={handleSearch}> {/* Trigger search on button click */}
           <FaSearch />
-        </span>
+        </button>
       </div>
 
       {error && <p className="text-center text-danger">{error}</p>} {/* Display error if present */}

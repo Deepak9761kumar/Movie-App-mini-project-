@@ -63,7 +63,7 @@ function Signup() {
       if (response.ok) {
         setSuccessMessage('Signup successful!');
         setTimeout(() => {
-          navigate('/login'); // Navigate to the login page after successful signup
+          navigate('/dashboard'); // Navigate to the login page after successful signup
         }, 1500);
       } else {
         setErrorMessage(result.message || 'Signup failed');

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import  '../styles/login.css';
+import '../styles/login.css';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -26,6 +26,13 @@ function Login() {
     setIsLoading(true);
     setErrorMessage('');
 
+    // Check if the email is the specific one for this API
+    if (formData.email !== 'eve.holt@reqres.in') {
+      setIsLoading(false);
+      setErrorMessage('Invalid email or password.');
+      return;
+    }
+
     try {
       const response = await fetch('https://reqres.in/api/login', {
         method: 'POST',
@@ -33,17 +40,13 @@ function Login() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-
       });
-
 
       const result = await response.json();
 
-      console.log("+++++++++++++++++=============", result.token);
-      
-
-      if (response.status === 200) {
-        localStorage.setItem('login', result.token );
+      // Check if the response is successful
+      if (response.status === 200 && result.token) {
+        localStorage.setItem('login', result.token);
         navigate('/dashboard');
       } else {
         setErrorMessage(result.error || 'Login failed');
