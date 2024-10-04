@@ -15,46 +15,31 @@ const MovieList = () => {
   const moviesPerPage = 4;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      setLoading(true);
-      setError(null); 
+  console.log("movies", movies)
 
+  useEffect(() => {
+    setLoading(true)
+    const fetchMovies = async () => {
       try {
         const response = await fetch(
-          `https://thingproxy.freeboard.io/fetch/http://www.omdbapi.com/?s=${searchQuery}&apikey=1ce657b3`,
+          `https://www.omdbapi.com/?i=tt3896198&apikey=1ce657b3`,
           {
             method: 'GET',
-            mode: 'no-cors',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-            }
           }
         );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
+        
         const data = await response.json();
-
-        if (data.Search) {
-          setMovies(data.Search);
-        } else {
-          setMovies([]);
-          setError("No movies found matching your search.");
-        }
-      } catch (error) {
-        console.error("Error fetching the movie data: ", error);
-        setError("Error fetching movies. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
+        setMovies([...movies, data])
+        console.log(data);
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }finally{
+      setLoading(false)
+    }
+    }    
 
     fetchMovies();
-  }, [searchQuery]); // Trigger API call when searchQuery changes
+  }, []); // Trigger API call when searchQuery changes
 
   const handleSearch = () => {
     setSearchQuery(searchTerm); // Trigger search when the button is clicked
@@ -97,8 +82,8 @@ const MovieList = () => {
       {error && <p className="text-center text-danger">{error}</p>} {/* Display error if present */}
       
       <div className="row">
-        {currentMovies.length > 0 ? (
-          currentMovies.map((movie) => (
+        {movies.length > 0 ? (
+          movies.map((movie) => (
             <div className="col-6 col-md-3 mb-4" key={movie.imdbID}>
               <div
                 className="card h-100"
