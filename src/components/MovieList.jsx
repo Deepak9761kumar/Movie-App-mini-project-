@@ -3,21 +3,22 @@ import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import '../styles/movieList.css';
 import { FaSearch } from 'react-icons/fa';
+import posterDummy from "../assets/no-poster-img.webp"
 
 const MovieList = () => {
-  const [movies, setMovies] = useState([]); // To store movie data
-  const [currentPage, setCurrentPage] = useState(1); // To handle pagination
-  const [loading, setLoading] = useState(true); // To show loading state
-  const [searchTerm, setSearchTerm] = useState(''); // To store input text
-  const [searchQuery, setSearchQuery] = useState('Inception'); // To store the actual search term for the API
-  const [error, setError] = useState(null); // To handle error messages
+  const [movies, setMovies] = useState([]); 
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [loading, setLoading] = useState(true); 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchQuery, setSearchQuery] = useState('Inception'); 
+  const [error, setError] = useState(null); 
 
   const moviesPerPage = 4;
   const navigate = useNavigate();
 
-  // Fetch movies from OMDB API
+  
   useEffect(() => {
-    setLoading(true); // Show loading when fetching data
+    setLoading(true); 
     const fetchMovies = async () => {
       try {
         const response = await fetch(
@@ -25,40 +26,39 @@ const MovieList = () => {
         );
         const data = await response.json();
         if (data.Response === "True") {
-          setMovies(data.Search); // Update movies with the Search array
+          setMovies(data.Search); 
         } else {
-          setError(data.Error); // Handle any error response
+          setError(data.Error);
         }
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         setError('Failed to fetch movies.');
       } finally {
-        setLoading(false); // Stop loading once data is fetched
+        setLoading(false); 
       }
     };
     
     fetchMovies();
-  }, [searchQuery]); // Trigger API call when searchQuery changes
+  }, [searchQuery]); 
 
-  // Handle the search button click
+  
   const handleSearch = () => {
-    setSearchQuery(searchTerm); // Trigger new search with input value
+    setSearchQuery(searchTerm); 
   };
 
-  // Handle "Enter" key press in the search bar
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      handleSearch(); // Trigger search when Enter is pressed
+      handleSearch();
     }
   };
 
-  // Pagination calculation
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
   const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
   const totalPages = Math.ceil(movies.length / moviesPerPage);
 
-  // Display loading message when fetching
+  
   if (loading) {
     return <p className="text-center">Loading movies...</p>;
   }
@@ -74,8 +74,8 @@ const MovieList = () => {
           className="form-control"
           placeholder="Search for movies..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // Update search term
-          onKeyDown={handleKeyDown} // Detect "Enter" key press
+          onChange={(e) => setSearchTerm(e.target.value)} 
+          onKeyDown={handleKeyDown}
         />
         <button className="input-group-text" onClick={handleSearch}> {/* Trigger search on button click */}
           <FaSearch />
@@ -91,11 +91,11 @@ const MovieList = () => {
             <div className="col-6 col-md-3 mb-4" key={movie.imdbID}>
               <div
                 className="card h-100"
-                onClick={() => navigate(`/movie/${movie.imdbID}`)} // Navigate to movie details on card click
-                style={{ cursor: 'pointer' }} // Change cursor to pointer to indicate clickable
+                onClick={() => navigate(`/movie/${movie.imdbID}`)} 
+                style={{ cursor: 'pointer' }}
               >
                 <img 
-                  src={movie.Poster !== 'N/A' ? movie.Poster : 'placeholder.jpg'} 
+                  src={movie.Poster !== 'N/A' ? movie.Poster : posterDummy} 
                   className="card-img-top" 
                   alt={movie.Title} 
                 />

@@ -1,90 +1,96 @@
-
+/* Container Styling */
 .container {
-  max-width: 1200px; 
-  margin: auto;      
-  padding: 20px;     
+  max-width: 1200px;
 }
 
-
-.card {
-  transition: transform 0.3s; 
-  border: none;              
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-}
-
-.card:hover {
-  transform: scale(1.05);    
-}
-
-
-.card-img-top {
-  object-fit: cover;
-  height: 200px;     
-}
-
-
+/* Search Bar Styling */
 .input-group {
   max-width: 600px;
-  margin: 0 auto;   
+  margin: 0 auto;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .input-group .form-control {
-  border-radius: 0.5rem; 
+  border-radius: 0;
 }
 
-.input-group-text {
-  border-radius: 0 0.5rem 0.5rem 0; 
-}
-
-
-.pagination {
-  margin-top: 10px;
-}
-
-.page-link {
-  color: #007bff;     
-  border: 1px solid #007bff; 
-}
-
-.page-link:hover {
-  background-color: #007bff; 
-  color: white; 
-}
-
-.active .page-link {
+.input-group .input-group-text {
   background-color: #007bff;
-  color: white; 
+  border: none;
+  color: #fff;
+  cursor: pointer;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .col-md-3 {
-      flex: 0 0 48%; 
-      max-width: 48%;
-  }
+/* Movie Card Styling */
+.card {
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 576px) {
-  .col-md-3 {
-      flex: 0 0 100%; 
-      max-width: 100%;
-  }
-}
-
-
-.mb-4 {
-  margin-bottom: 20px; 
+.card:hover {
+  transform: scale(1.05);
 }
 
 .card-body {
-  padding: 1rem; 
+  text-align: center;
 }
 
 .card-title {
-  font-size: 1.1rem; 
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .card-text {
-  font-size: 0.85rem; 
-  color: #555; 
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Image styling */
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
+  border-bottom: 2px solid #eee;
+}
+
+/* Pagination Styling */
+.pagination .page-link {
+  color: #007bff;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.pagination .page-link:hover {
+  background-color: #0056b3;
+  color: #fff;
+  border-color: #0056b3;
+}
+
+/* Loading and Error States */
+.text-center {
+  color: #555;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 200px;
+  }
+  
+  .card-body {
+    padding: 0.5rem;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+  }
+  
+  .card-text {
+    font-size: 0.85rem;
+  }
 }

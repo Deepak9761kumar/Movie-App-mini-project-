@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/moviedetails.css'
+import posterDummy from "../assets/no-poster-img.webp"
+
 
 function MovieDetails() {
   const { id } = useParams();
@@ -35,7 +37,13 @@ function MovieDetails() {
   return (
     <div className="movie-details-container">
       <h1 className="movie-title">{movie.Title}</h1>
-      <img src={movie.Poster} alt={movie.Title} className="movie-poster" />
+      {/* <img src={movie.Poster} alt={movie.Title} className="movie-poster" />
+       */}
+                       <img 
+                  src={movie.Poster !== 'N/A' ? movie.Poster : posterDummy} 
+                  className="movie-poster" 
+                  alt={movie.Title} 
+                />
 
       <div className="table-container">
         <table className="table">
