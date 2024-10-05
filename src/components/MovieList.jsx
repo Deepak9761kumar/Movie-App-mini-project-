@@ -98,6 +98,7 @@ const MovieList = () => {
                   src={movie.Poster !== 'N/A' ? movie.Poster : posterDummy} 
                   className="card-img-top" 
                   alt={movie.Title} 
+                  onError={(e) => e.target.src = posterDummy}
                 />
                 <div className="card-body">
                   <h5 className="card-title">{movie.Title}</h5>

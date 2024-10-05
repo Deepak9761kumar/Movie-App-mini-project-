@@ -43,6 +43,8 @@ function MovieDetails() {
                   src={movie.Poster !== 'N/A' ? movie.Poster : posterDummy} 
                   className="movie-poster" 
                   alt={movie.Title} 
+                  onError={(e) => e.target.src = posterDummy}
+
                 />
 
       <div className="table-container">
